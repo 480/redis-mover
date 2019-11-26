@@ -18,7 +18,9 @@ module.exports = function(redisAddress, pattern, callback) {
       port: redisAddress.port,
       host: redisAddress.hostname
     }
-  ]);
+  ],{
+    slotsRefreshTimeout: 3000
+  });
   db.select(redisAddress.db);
 
   // Get the keys that match the specified pattern

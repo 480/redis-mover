@@ -32,7 +32,9 @@ module.exports = function(params, callback) {
       port: params.source.port,
       host: params.source.hostname
     }
-  ]);  
+  ],{
+    slotsRefreshTimeout: 3000
+  });  
   sourceDb.select(params.source.db);
 
   // var destinationDb = redis.createClient(params.destination.port, params.destination.hostname, {
@@ -43,7 +45,9 @@ module.exports = function(params, callback) {
       port: params.destination.port,
       host: params.destination.hostname
     }
-  ]);
+  ],{
+    slotsRefreshTimeout: 3000
+  });
 
   destinationDb.select(params.destination.db);
 
