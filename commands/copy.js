@@ -39,6 +39,7 @@ module.exports = function(params, callback) {
     }
   ],{
     slotsRefreshTimeout: 3000,
+    dnsLookup: (address, callback) => callback(null, address),
     enableReadyCheck: false,
     redisOptions: {
         tls: {},
