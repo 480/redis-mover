@@ -33,7 +33,8 @@ module.exports = function(params, callback) {
       host: params.source.hostname
     }
   ],{
-    slotsRefreshTimeout: 3000
+    slotsRefreshTimeout: 3000,
+    enableReadyCheck: false
   });  
   sourceDb.select(params.source.db);
 
@@ -46,7 +47,8 @@ module.exports = function(params, callback) {
       host: params.destination.hostname
     }
   ],{
-    slotsRefreshTimeout: 3000
+    slotsRefreshTimeout: 3000,
+    enableReadyCheck: false
   });
 
   destinationDb.select(params.destination.db);

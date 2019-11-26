@@ -19,7 +19,8 @@ module.exports = function(redisAddress, pattern, callback) {
       host: redisAddress.hostname
     }
   ],{
-    slotsRefreshTimeout: 3000
+    slotsRefreshTimeout: 3000,
+    enableReadyCheck: false
   });
   db.select(redisAddress.db);
 
