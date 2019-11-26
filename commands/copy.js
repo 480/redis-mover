@@ -24,17 +24,8 @@ module.exports = function(params, callback) {
 
 
   // Connect to Redis Instances
-  // var sourceDb = redis.createClient(params.source.port, params.source.hostname, {
-  //   auth_pass: params.source.auth
-  // });
-  var sourceDb = new redis.Cluster([
-    {
-      port: params.source.port,
-      host: params.source.hostname
-    }
-  ],{
-    slotsRefreshTimeout: 3000,
-    enableReadyCheck: false
+  var sourceDb = redis.createClient(params.source.port, params.source.hostname, {
+    auth_pass: params.source.auth
   });  
   sourceDb.select(params.source.db);
 
@@ -48,7 +39,10 @@ module.exports = function(params, callback) {
     }
   ],{
     slotsRefreshTimeout: 3000,
-    enableReadyCheck: false
+    enableReadyCheck: false,
+    redisOptions: {
+        tls: {},
+    },
   });
 
   destinationDb.select(params.destination.db);

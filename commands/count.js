@@ -12,14 +12,8 @@ module.exports = function(redisAddress, pattern, callback) {
   pattern = pattern || '*';
 
   // Connect to the Redis instance
-  var db = new redis.Cluster([
-    {
-      port: redisAddress.port,
-      host: redisAddress.hostname
-    }
-  ],{
-    slotsRefreshTimeout: 3000,
-    enableReadyCheck: false
+  var db = redis.createClient(redisAddress.port, redisAddress.hostname, {
+    auth_pass: redisAddress.auth
   });
   db.select(redisAddress.db);
 
