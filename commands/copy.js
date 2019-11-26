@@ -41,6 +41,7 @@ module.exports = function(params, callback) {
     enableReadyCheck: false,
     redisOptions: {
         tls: {},
+        password: '',
     },
   });
 
