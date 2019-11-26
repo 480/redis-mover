@@ -1,7 +1,7 @@
 'use strict';
 
 var async = require('async');
-var redis = require('redis');
+var redis = require('ioredis');
 
 module.exports = function(params, callback) {
   params = params || {};
@@ -24,14 +24,27 @@ module.exports = function(params, callback) {
 
 
   // Connect to Redis Instances
-  var sourceDb = redis.createClient(params.source.port, params.source.hostname, {
-    auth_pass: params.source.auth
-  });
+  // var sourceDb = redis.createClient(params.source.port, params.source.hostname, {
+  //   auth_pass: params.source.auth
+  // });
+  var sourceDb = new redis.Cluster([
+    {
+      port: params.source.port,
+      host: params.source.hostname
+    }
+  ]);  
   sourceDb.select(params.source.db);
 
-  var destinationDb = redis.createClient(params.destination.port, params.destination.hostname, {
-    auth_pass: params.destination.auth
-  });
+  // var destinationDb = redis.createClient(params.destination.port, params.destination.hostname, {
+  //   auth_pass: params.destination.auth
+  // });
+  var destinationDb = new redis.Cluster([
+    {
+      port: params.destination.port,
+      host: params.destination.hostname
+    }
+  ]);
+
   destinationDb.select(params.destination.db);
 
 

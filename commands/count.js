@@ -1,6 +1,6 @@
 'use strict';
 
-var redis = require('redis');
+var redis = require('ioredis');
 
 module.exports = function(redisAddress, pattern, callback) {
   redisAddress = redisAddress || {};
@@ -12,9 +12,12 @@ module.exports = function(redisAddress, pattern, callback) {
   pattern = pattern || '*';
 
   // Connect to the Redis instance
-  var db = redis.createClient(redisAddress.port, redisAddress.hostname, {
-    auth_pass: redisAddress.auth
-  });
+  var db = new redis.Cluster([
+    {
+      port: redisAddress.port,
+      host: redisAddress.hostname
+    }
+  ]);
   db.select(redisAddress.db);
 
   // Get the keys that match the specified pattern
