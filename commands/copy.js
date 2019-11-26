@@ -36,7 +36,7 @@ module.exports = function(params, callback) {
     `${params.destination.hostname}:${params.destination.port}`
   ],{
     scaleReads: 'slave',
-    slotsRefreshTimeout: 3000,
+    slotsRefreshTimeout: 5000,
     dnsLookup: (address, callback) => callback(null, address),
     enableReadyCheck: false,
     redisOptions: {
