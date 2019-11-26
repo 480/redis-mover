@@ -33,11 +33,9 @@ module.exports = function(params, callback) {
   //   auth_pass: params.destination.auth
   // });
   var destinationDb = new redis.Cluster([
-    {
-      port: params.destination.port,
-      host: params.destination.hostname
-    }
+    `${params.destination.hostname}:${params.destination.port}`
   ],{
+    scaleReads: 'slave',
     slotsRefreshTimeout: 3000,
     dnsLookup: (address, callback) => callback(null, address),
     enableReadyCheck: false,
